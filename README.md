@@ -7,11 +7,14 @@ Convert summertime METAR data into CSV format
 1. Get the data: for METAR copy the result of this URL into the clipboard and paste it into jEdit. Note this URL lists weather station IDs and number of hours.. You can customize those, but 4x168hours is about the max number you can request before the government starts cutting you off. 
          * https://aviationweather.gov/cgi-bin/data/metar.php?ids=KFTW,KDFW,KGPM,KGKY&hours=168&order=id%2C-obs&sep=true
 2. If you're tracking longer term data or collecting multiple weather stations, In jedit sort the data with no duplication to eliminate double copies and remove blank lines.  After you do this, you need to remove the blank line at the start of the buffer. 
-         * Jedit -> plugins -> sort ... -> [no dup] --> [sort]
-3. select all in jedit and copy to clipboard. 
-4. open LibreOffice Calc (or Excel, or Google sheets, or possibly other spreadsheets.) Paste the data in, choosing tab separated fields, and if needed 'formulas are in the data.'
+         * Jedit -> plugins -> TextTools -> sort ... -> [delete identic lines] --> [OK]
+         * Jedit (remove the leading blank line that sort may have left.
+3. Run the METAR_2_CSV script
+         * Jedit -> Macros -> METAR 2 CSV 
+4. Select all in Jedit and copy to clipboard. 
+5. Open LibreOffice Calc (or Excel, or Google sheets, or possibly other spreadsheets.) Paste the data in, choosing tab separated fields, and if needed 'formulas are in the data.'
 I'm encoding formula into tab separated values though, so no promise it works on other (Numbers) programs.  
-5. Many columns only have data in row 1.  you'll need to copy-down that column to fill it in. copy row one, and paste it into the rest of the column. 
+6. Many columns only have data in row 1.  you'll need to copy-down that column to fill it in. copy row one, and paste it into the rest of the column. 
 
 ### Online Data Sources
 
