@@ -87,42 +87,42 @@ ISH Technical Report | https://www.ncei.noaa.gov/pub/data/noaa/ish-tech-report.p
 ISH File format field List | https://www.github.com
 ISD Data Documenation | https://www.ncei.noaa.gov/data/global-hourly/doc/isd-format-document.pdf
 
-## Mikey's Sky Data visualizations and percent irradiation drop
-| METAR                        | Visualization   | Qty | Meaning              
-|------------------------------|-----------------|-----|--------------------- 
-| FEW[234]/d{2}                | \`              | 0.1 | Light Cirrus Clouds
-| SCT[234]/d{2}                | \`\`            | 0.2 | Scattered Cirrus Clouds
-| BKN[234]/d{2}                | \`\`\`\`        | 0.4 | Partly Sunny Cirrus Clouds
-| OVC[234]/d{2}                | \`\`\`\`\`\`    | 0.6 | Overcast Cirrus Clouds
-| FEW([0][6-9]/d\|[1][0-9]{2}) | '               | 0.1 | Light Alto Clouds          
-| SCT([0][6-9]/d\|[1][0-9]{2}) | '''             | 0.3 | Scattered Alto Clouds    
-| BKN([0][6-9]/d\|[1][0-9]{2}) | ''''''          | 0.6 | Partly Sunny Alto Clouds   
-| OVC([0][6-9]/d\|[1][0-9]{2}) | '''''''''       | 0.9 | Overcast Alto Clouds       
-| FEW([0][1-5]/d               | .               | 0.1 | Light Tropo Clouds   
-| SCT([0][1-5]/d               | ....            | 0.4 | Scattered Tropo Clouds  
-| BKN([0][1-5]/d               | .......         | 0.7 | Partly Sunny Tropo Clouds
-| OVC([0][1-5]/d               | ..........      | 1   | Overcast Tropo Clouds      
-| P00000                       | ;               | 0.1 | Trace Precip         
-| P00[1-9]                     | ;;;             | 0.3 | Less than .1" precip 
-| P0[1-9]\\d                   | ;;;;;;;;        | 0.8 | Less than 1" precip  
-| P[1-9]\\d                    | ;;;;;;;;;;;;;;; | 1.5 | More than 1" precip  
-| 10SM                         |                 | 0   | Clear                
-| [5-9]SM                      | _               | 0.1 | Smog level           
-| [2-4]SM                      | __              | 0.2 | Haze Level           
-| [/1]                         | _____           | 0.5 | Fog Level     
+## Mikey's Dark Sky Visualizations and percent irradiation drop
+ METAR                        | Visualization   | Qty | Meaning              
+------------------------------|-----------------|-----|--------------------- 
+ FEW[234]/d{2}                | \`              | 0.1 | Light Cirrus Clouds
+ SCT[234]/d{2}                | \`\`            | 0.2 | Scattered Cirrus Clouds
+ BKN[234]/d{2}                | \`\`\`\`        | 0.4 | Partly Sunny Cirrus Clouds
+ OVC[234]/d{2}                | \`\`\`\`\`\`    | 0.6 | Overcast Cirrus Clouds
+ FEW([0][6-9]/d\|[1][0-9]{2}) | '               | 0.1 | Light Alto Clouds          
+ SCT([0][6-9]/d\|[1][0-9]{2}) | '''             | 0.3 | Scattered Alto Clouds    
+ BKN([0][6-9]/d\|[1][0-9]{2}) | ''''''          | 0.6 | Partly Sunny Alto Clouds   
+ OVC([0][6-9]/d\|[1][0-9]{2}) | '''''''''       | 0.9 | Overcast Alto Clouds       
+ FEW([0][1-5]/d               | .               | 0.1 | Light Tropo Clouds   
+ SCT([0][1-5]/d               | ....            | 0.4 | Scattered Tropo Clouds  
+ BKN([0][1-5]/d               | .......         | 0.7 | Partly Sunny Tropo Clouds
+ OVC([0][1-5]/d               | ..........      | 1   | Overcast Tropo Clouds      
+ P00000                       | ;               | 0.1 | Trace Precip         
+ P00[1-9]                     | ;;;             | 0.3 | Less than .1" precip 
+ P0[1-9]\\d                   | ;;;;;;;;        | 0.8 | Less than 1" precip  
+ P[1-9]\\d                    | ;;;;;;;;;;;;;;; | 1.5 | More than 1" precip  
+ 10SM                         |                 | 0   | Clear                
+ [5-9]SM                      | _               | 0.1 | Smog level           
+ [2-4]SM                      | __              | 0.2 | Haze Level           
+ [/1]\\d{0,1}SM               | _____           | 0.5 | Fog Level     
 
 ### Mikey's Pressure Trend visualizations and OCD alphabetizing attempts
-| **Figure Code** | **Alpha Code** | **Visual** | **Meaning** | **Term**  | **Change** | **Description (FCM-H1-2019)**                                                      |
-|-----------------|----------------|------------|-------------|-----------|------------|----------------------------------------------------------------------------------- |
-| PC0             | V              | /⁀\\       | Peak        | Vertex    | +          | Increasing, then decreasing.                                                       |
-| PC1             | T              | /⁀⁀        | Plateau     | Table     | +          | Increasing, then steady, or increasing then increasing more slowly.                |
-| PC2             | R              | ‿/⁀        | Rise        | **Rise**  | +          | Increasing steadily or unsteadily.                                                 |
-| PC3             | M              | ‿‿/        | Ramp        | Ramp      | +          | Decreasing or steady, then increasing; or increasing then increasing more rapidly. |
-| PC4             | L              | \~~~       | Level       | **Level** | +          | Steady.                                                                            |
-| PC8             | K              | ⁀⁀\\       | Cliff       | Cliff     | \-         | Steady or increasing, then decreasing; or decreasing then decreasing more rapidly. |
-| PC7             | F              | ⁀\\‿       | Fall        | **Fall**  | \-         | Decreasing steadily or unsteadily.                                                 |
-| PC6             | D              | \\‿‿       | Down        | Down      | \-         | Decreasing then steady; or decreasing then decreasing more slowly.                 |
-| PC5             | B              | \\‿/       | Dip         | Bottom    | \-         | Decreasing, then increasing.                                                       |      
+ **Figure Code** | **Alpha Code** | **Visual** | **Meaning** | **Term**  | **Change** | **Description (FCM-H1-2019)**                                                      
+-----------------|----------------|------------|-------------|-----------|------------|----------------------------------------------------------------------------------- 
+ PC0             | V              | /⁀\\       | Peak        | Vertex    | +          | Increasing, then decreasing.                                                       
+ PC1             | T              | /⁀⁀        | Plateau     | Table     | +          | Increasing, then steady, or increasing then increasing more slowly.                
+ PC2             | R              | ‿/⁀        | Rise        | **Rise**  | +          | Increasing steadily or unsteadily.                                                 
+ PC3             | M              | ‿‿/        | Ramp        | Ramp      | +          | Decreasing or steady, then increasing; or increasing then increasing more rapidly. 
+ PC4             | L              | \~~~       | Level       | **Level** | +          | Steady.                                                                            
+ PC8             | K              | ⁀⁀\\       | Cliff       | Cliff     | \-         | Steady or increasing, then decreasing; or decreasing then decreasing more rapidly. 
+ PC7             | F              | ⁀\\‿       | Fall        | **Fall**  | \-         | Decreasing steadily or unsteadily.                                                 
+ PC6             | D              | \\‿‿       | Down        | Down      | \-         | Decreasing then steady; or decreasing then decreasing more slowly.                 
+ PC5             | B              | \\‿/       | Dip         | Bottom    | \-         | Decreasing, then increasing.                                                            
 
 ### METAR.csv Format 
 Column| Name                  | Units                        | Column Head     
@@ -180,6 +180,7 @@ BC   | IDX Station Name       | Text                         | IDX-Location-Name
 BA   | IDX Lat                | Deg N of Equator             | IDX-Location-Latitude-(deg)
 BB   | IDX Longitude          | Deg E of London              | IDX-Location-Longitude-(deg)
 AZ   | IDX Elevation          | (m)                          | IDX-Location-Elevation-(m)
+
 ### About NREL Solar Data 
 
 Placeholder link to source data: https://research-hub.nrel.gov/en/publications/?originalSearch=Solar
