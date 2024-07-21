@@ -3,14 +3,22 @@ Convert summertime METAR data into CSV format
 
 ### How to use these conversion scripts
 0. These are Jedit macros.  you'll need Jedit, and an understanding how to manually install Jedit Macros.  Depending on a lot of things this changes from one setup to another, so install jedit, and read the help files with it to understand macros.
+
          * https://jedit.org/index.php?page=download
+
 1. Get the data: for METAR copy the result of this URL into the clipboard and paste it into jEdit. Note this URL lists weather station IDs and number of hours.. You can customize those, but 4x168hours is about the max number you can request before the government starts cutting you off. 
+
          * https://aviationweather.gov/cgi-bin/data/metar.php?ids=KFTW,KDFW,KGPM,KGKY&hours=168&order=id%2C-obs&sep=true
+
 2. If you're tracking longer term data or collecting multiple weather stations, In jedit sort the data with no duplication to eliminate double copies and remove blank lines.  After you do this, you need to remove the blank line at the start of the buffer. 
+
          * Jedit -> plugins -> TextTools -> sort ... -> [delete identic lines] --> [OK]
          * Jedit (remove the leading blank line that sort may have left.
+
 3. Run the METAR_2_CSV script
+
          * Jedit -> Macros -> METAR 2 CSV 
+
 4. Select all in Jedit and copy to clipboard. 
 5. Open LibreOffice Calc (or Excel, or Google sheets, or possibly other spreadsheets.) Paste the data in, choosing tab separated fields, and if needed 'formulas are in the data.'
 I'm encoding formula into tab separated values though, so no promise it works on other (Numbers) programs.  
@@ -41,7 +49,7 @@ Govee Home | What I'm using for Air temp and humidity | https://play.google.com/
 
 I'm only focused on Android apps because while in use as a data logger, each device becomes a purpose only device (nothing else runs in the background and no screen swapping.)  Android phones last, and they are priced at levels you can have an extra dozen or so devices laying around (I have 20ish, but I'm on the edge of usual, I know.) I've never run into anyone with more than a couple extra IOS devices and usually those are severely limited in functionality (broken screen, battery life in minutes, been off the appstore for a decade.)  That said **Physics Toolbox** is available on IOS, and will provide all the functionality needed (Except logs get huge fast, since you can't slow them down. Leave it to rocket scientists to decide that 20 points per second is the slowest anyone would ever want to log data... ) I asked for lower frequency logging and received a "it's hard" reply, so there's hope they will allow for smaller files. 
 
-* **Device Info HW** is based in Russia.  I've been using it on everything for about a decade... but times being what they are... but it provides more about the device than any other app I know.. in a straightforward set of tables. (Except... all modern androids and IOS devices have at least a couple cameras on the back... and NOTHING will tell me what those other eyes are and how to use them.. but thats out of scope for this project.) 
+* **Device Info HW** is based in Russia.  I've been using it on everything for about a decade... but times being what they are, use at your own risk. But it provides more about the device than any other app I know, in a straightforward set of tables.  
 * **Physics Toolbox** is geared toward education market, but it really transforms my low to mid range androids into lab quality tricorders.  
 * **Sensor Logger** is the primary companion to the Bluetooth Hygrometers I'm using. it allows recording all the sensors (but some sensors like tracking WIFI that I'm not interested in require a monthly account.) 
 * **GPS Logger** only logs GPS, but exports in KML and GPX which then imports into analyzers (Google Earth) without any excel magic. 
@@ -119,54 +127,59 @@ ISD Data Documenation | https://www.ncei.noaa.gov/data/global-hourly/doc/isd-for
 ### METAR.csv Format 
 Column| Name                  | Units                        | Column Head     
 ---- | ---------------------- | ---------------------------- | ----------------
-A    | Local Time             | 1                            | Local-Time      
-B    | UTC                    | 2                            | UTC-Time        
-C    | YYYY                   | 3                            | UTC-YYYY        
-D    | MM                     | 4                            | UTC-MM          
-E    | DD                     | 5                            | UTC-DD          
-F    | HH                     | 6                            | UTC-HH          
-G    | Input Time             | 7                            | UTC-HHMM        
+A    | Local Time             | YYYY-MM-DD HH:MM             | Local-Time      
+B    | UTC                    | YYYY-MM-DD HH:MM             | UTC-Time        
+C    | UTC Year               | YYYY                         | UTC-YYYY        
+D    | UTC Month              | MM                           | UTC-MM          
+E    | UTC Day                | DD                           | UTC-DD          
+F    | UTC Hour               | HH                           | UTC-HH          
+G    | Input Time             | Text                         | UTC-HHMM        
 H    | Location Name          |                              | Location        
-I    | Latitude               | (Degrees North of Equator)   | GPS-Lat                      
-J    | Longitude              | (Degrees East of London)     | GPS-Lng                      
+I    | Latitude               | (deg) N of Equator           | GPS-Lat                      
+J    | Longitude              | (deg) E of London            | GPS-Lng                      
 K    | Accuracy               | (m)                          | GPS-Acc                      
-L    | Altitude               | (m)                          | GPS-Alt                      
+L    | Altitude               | (m) above sea level          | GPS-Alt                      
 M    | Speed                  | (m/s)                        | GPS-Speed                    
-N    | Bearing                | (Degrees East of North       | GPS-Bearing                  
+N    | Bearing                | (deg) E of North             | GPS-Bearing                  
 O    | Temp                   | C                            | Temp-Current-(C)             
 P    | Temp                   | F                            | Temp-Current-(F)             
 Q    | Daily Max              | C                            | Temp-Max-(C)                 
 R    | Daily Min              | C                            | Temp-Min-(C)                 
 S    | Dewpoint               | C                            | Dewpoint-(C)                 
 T    | Dewpoint               | F                            | Dewpoint-(F)                 
-U    | Humidity               | Pct                          | Humidity-(pct)               
+U    | Humidity               | (pct)                        | Humidity-(pct)               
 V    | Heat Index             | F                            | Heat-Index-(F)               
-W    | Heat Entropy           | (Temp C) + (Dewpoint C) < 65 | Heat-Warning                 
+W    | Heat Warning           | _Warning number_             | Heat-Warning                 
 X    | Measured Pressure      | (hPa)                        | Air-Pressure-Measured-(hPa)  
 Y    | Alitmeter              | (InHg)                       | Air-Pressure-Altimeter-(inHg)
 Z    | Sea Level              | (hPa)                        | Air-Pressure-Sea-Level-(hPa) 
-AA   | 3 hr Trend             | (Mikey's)                    | Air-Pressure-Trend           
+AA   | 3 hr Trend             | (Mikey's Meaning)            | Air-Pressure-Trend           
 AB   | 3 hr Change            | (hPa)                        | Air-Pressure-Change-(hPa)    
 AC   | Wind Direction         | (Deg)                        | Wind-Direction-(deg)         
 AD   | Wind Speed             | (Kts)                        | Wind-Speed-(Kts)             
 AE   | Wind Gusts             | (Kts)                        | Wind-Gusts-(Kts)             
-AF   | Solar Angle            |                              | Light-Solar-Angle-(deg)      
-AG   | Solar Azimuth          |                              | Light-Solar-Azimuth-(deg)    
+AF   | Solar Angle            | Deg from Zenith              | Light-Solar-Angle-(deg)      
+AG   | Solar Azimuth          | Deg E of N                   | Light-Solar-Azimuth-(deg)    
 AH   | Clearsky DHI           | W/m2                         | Light-Clearsky-DHI-(W/m2)    
 AI   | Clearsky DNI           | W/m2                         | Light-Clearsky-DNI-(W/m2)    
 AJ   | Clearsky GHI           | W/m2                         | Light-Clearsky-GHI-(W/m2)    
-AK   | Light Measured Energy  | Lux                          | Light-Measured-(Lux)         
+AK   | Light Measured Energy  | (lux)                        | Light-Measured-(lux)         
 AL   | Light Measured Angle   | Deg from Zenith              | Light-Measured-Angle-(deg)   
 AM   | Light Measured Azimuth | Deg E of N                   | Light-Measured-Azimuth-(deg) 
 AN   | Precipitation Hourly   | (in)                         | Precip-Hourly-(in)           
 AP   | Precipitation Daily    | (in)                         | Precip-Daily-(in)            
-AQ   | Sky Cover              | (pct... Mikey)               | Sky-Cover-(pct)              
-AR   | Sky listing            | (graphic spatial see legend) | Sky-Cover                    
-AS   | Visibility             |                              | Visibility-(mi)              
-??   | Flags                  |                              | Flag-....                    
-??   | Remarks                |                              | Remarks                      
-(+2) | Local Time Zone Offset |                              | Local-Time-Zone-Offset       
-
+AQ   | Dark Sky Filter        | (pct... Mikey's guess)       | Sky-Dark-Sky-Filter-(pct)              
+AR   | Dark Sky List          | (Mikey's Visualization)      | Sky-Dark-Sky-List                    
+AS   | Visibility             | (mi)                         | Sky-Visibility-(mi)              
+AT-AU| Flags                  |                              | Flag-....                    
+AV   | Remarks                | cloud heights and leftovers  | Remarks                      
+AW   | empty                  | constant data follows        | required break to avoid sorting constants
+AX   | Local Time Zone Offset |                              | Local-Time-Zone-Offset       
+AY   | IDX Station ID         | METAR Station ID             | IDX-Location-ID
+BC   | IDX Station Name       | Text                         | IDX-Location-Name
+BA   | IDX Lat                | Deg N of Equator             | IDX-Location-Latitude-(deg)
+BB   | IDX Longitude          | Deg E of London              | IDX-Location-Longitude-(deg)
+AZ   | IDX Elevation          | (m)                          | IDX-Location-Elevation-(m)
 ### About NREL Solar Data 
 
 Placeholder link to source data: https://research-hub.nrel.gov/en/publications/?originalSearch=Solar
