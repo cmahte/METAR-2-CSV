@@ -1,6 +1,6 @@
-#ISD Data format
+# ISD Data format
 
-###Control Data Section
+### Control Data Section
 Position | Field            | Len | Format | Description                                                                                
 -------- | ---------------- | --- | ------ | -------------------------------------------------------------------------------------------
 1 - 4    | Rec Length       | 4   | ####   | Length, in bytes, of the portion of the record beyond position 105.                        
@@ -43,12 +43,12 @@ Position | Field            | Len | Format | Description
 105-105  | Sea Lev QC       | 1   | X      | Sea level pressure QC code.    
 106-108  | Add Ind          | 3   | ADD    | Additional data section indicator. Always “ADD”.
 
-### Additional Data Section [ADD]
+### Additional Data Section \[ADD\]
 Identifier | Data Type                                    | Len | Format                                                 | Field Descriptions                                                                                                                                                                                                
 ---------- | -------------------------------------------- | --- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ADD        | Additional Data                              | 3   | [ADD]                                                  | [ID]                                                                                                                                                                                                              
-AA1        | Liquid Precipitation Data                    | 11  | [AA1\|##\|####\|#\|#]                                  | [ID\|Period Qty\|Depth(mm)\|Condition\|QC]                                                                                                                                                                        
-AA2        | Liquid Precipitation Data                    | 11  | [AA2\|##\|####\|#\|#]                                  | [ID\|Period Qty\|Depth(mm)\|Condition\|QC]                                                                                                                                                                        
+ADD        | Additional Data                              | 3   | \[ADD\]                                                  | [ID]                                                                                                                                                                                                              
+AA1        | Liquid Precipitation Data                    | 11  | \[AA1\|##\|####\|#\|#\]                                  | [ID\|Period Qty\|Depth(mm)\|Condition\|QC]                                                                                                                                                                        
+AA2        | Liquid Precipitation Data                    | 11  | \[AA2\|##\|####\|#\|#\]                                  | [ID\|Period Qty\|Depth(mm)\|Condition\|QC]                                                                                                                                                                        
 AA3        | Liquid Precipitation Data                    | 11  | [AA3\|##\|####\|#\|#]                                  | [ID\|Period Qty\|Depth(mm)\|Condition\|QC]                                                                                                                                                                        
 AA4        | Liquid Precipitation Data                    | 11  | [AA4\|##\|####\|#\|#]                                  | [ID\|Period Qty\|Depth(mm)\|Condition\|QC]                                                                                                                                                                        
 AC1        | Precipitation History Data                   | 6   | [AC1\|#\|A\|#]                                         | [ID\|Duration\|Characteristic\|QC]                                                                                                                                                                                
