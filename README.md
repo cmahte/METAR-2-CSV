@@ -72,6 +72,7 @@ Things to do:
 ## About METAR data 
  Document | Site 
 ----------|------
+Federal Meteorological Handbook | https://www.icams-portal.gov/resources/ofcm/fmh/FMH1/fmh1_2019.pdf
 ASOS User Manual | https://www.weather.gov/media/asos/aum-toc.pdf
 METAR Decode Key | https://www.weather.gov/media/wrh/mesowest/metar_decode_key.pdf
 ISH Technical Report | https://www.ncei.noaa.gov/pub/data/noaa/ish-tech-report.pdf
