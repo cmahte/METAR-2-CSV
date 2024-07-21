@@ -1,0 +1,605 @@
+// Convert METAR file into .CSV
+// Add space to end of line
+SearchAndReplace.setSearchString("$");
+SearchAndReplace.setReplaceString(" ");
+SearchAndReplace.setBeanShellReplace(false);
+SearchAndReplace.setWholeWord(false);
+SearchAndReplace.setIgnoreCase(false);
+SearchAndReplace.setRegexp(true);
+SearchAndReplace.setSearchFileSet(new CurrentBufferSet());
+SearchAndReplace.replaceAll(view);
+
+// convert tt/dd to Txxxxxxxx if needed.
+SearchAndReplace.setSearchString("(^[^\\n]+ )(\\d{2})/(\\d{2})([^\\nT]+$)");
+SearchAndReplace.setReplaceString("$1$2/$3$4 [ T0$2.00$3.0 ]");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("\\.");
+SearchAndReplace.setReplaceString("");
+SearchAndReplace.replaceAll(view);
+
+// -- Flag-Temp-Accuracy
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400})(\\])");
+SearchAndReplace.setReplaceString("~$1$2");
+SearchAndReplace.replaceAll(view);
+
+// -- Flag-Maint
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400})(\\$)");
+SearchAndReplace.setReplaceString("$2$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Flag-Auto(mated METAR)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )(AUTO) ");
+SearchAndReplace.setReplaceString("$2$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Visibility
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )([0-9/]{0,5})SM ");
+SearchAndReplace.setReplaceString("=$2$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Sky Cover
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+// Overcast Clouds
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )OVC(\\d{3})");
+SearchAndReplace.setReplaceString("##########$1 Overcast clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+// Broken Clouds (66%)
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )BKN(\\d{3})");
+SearchAndReplace.setReplaceString("kkkkkk$1 Broken clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )BKN(\\d{3})");
+SearchAndReplace.setReplaceString("kkkkkk$1 Broken clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )BKN(\\d){3}");
+SearchAndReplace.setReplaceString("kkkkkk$1 Broken clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("k{13,20}");
+SearchAndReplace.setReplaceString("kkkkkkkkkkkk");
+SearchAndReplace.replaceAll(view);
+// Scattered Clouds
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )SCT(\\d{3})");
+SearchAndReplace.setReplaceString("xxx$1 Scattered clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )SCT(\\d{3})");
+SearchAndReplace.setReplaceString("xxx$1 Scattered clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )SCT(\\d{3})");
+SearchAndReplace.setReplaceString("xxx$1 Scattered clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("x{6,9}");
+SearchAndReplace.setReplaceString("xxxxx");
+SearchAndReplace.replaceAll(view);
+// Light clouds
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )FEW(\\d{3})");
+SearchAndReplace.setReplaceString("+$1 Light clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )FEW(\\d{3})");
+SearchAndReplace.setReplaceString("+$1 Light clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )FEW(\\d{3})");
+SearchAndReplace.setReplaceString("+$1 Light clouds at $2,00");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("^\\+{1,3}");
+SearchAndReplace.setReplaceString("+");
+SearchAndReplace.replaceAll(view);
+// Clear Sky
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )CLR ");
+SearchAndReplace.setReplaceString("$1 No clouds");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )SKC ");
+SearchAndReplace.setReplaceString("$1 No clouds");
+SearchAndReplace.replaceAll(view);
+// Valid Sky Report
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} clouds)");
+SearchAndReplace.setReplaceString("SKY:$1");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(\\d)\\,(\\d)");
+SearchAndReplace.setReplaceString("$1$2");
+SearchAndReplace.replaceAll(view);
+
+// Sky Cover Formula
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=(LEN(AQ2)-4)*10");
+
+
+// -- Daily Precipitation (in)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )7(\\d{2})(\\d{2})");
+SearchAndReplace.setReplaceString("$2.$3$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Hourly Precipitation (in) [cumulative for the hour, can overcount]
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )P(\\d{2})(\\d{2})");
+SearchAndReplace.setReplaceString("$2.$3$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Light-Measured-Azimuth-(deg)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Light-Measured-Angle-(deg)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Light-Measured-(lux)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Light-Clearsky-GHI-(W/m2)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Light-Clearsky-DNI-(W/m2)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Light-Clearsky-DHI-(W/m2)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Light-Solar-Azimuth-(deg)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Light-Solar-Angle-(deg)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Wind Gusts
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400}\\d)G([0-9]{2})KT ");
+SearchAndReplace.setReplaceString("$2$1KT ");
+SearchAndReplace.replaceAll(view);
+
+// -- Wind Speed
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )([0-9BGRV]{3})(\\d{2})KT {0,1}");
+SearchAndReplace.setReplaceString("$3$1WD-$2 ");
+SearchAndReplace.replaceAll(view);
+
+// -- Wind Direction
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )WD\\-([0-9BGRV]{3}) ");
+SearchAndReplace.setReplaceString("$2$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Pressure Tendency
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} T\\d{8}[^\\n]{0,200}) 5(\\d{4})");
+SearchAndReplace.setReplaceString("PC$2$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Pressure Tendency into Pressure Trend and Pressure Change
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("\\t(PC[01234])(\\d{2})(\\d)");
+SearchAndReplace.setReplaceString("$1\\t$2.$3");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("\\t(PC[5678])(\\d{2})(\\d)");
+SearchAndReplace.setReplaceString("$1\\t\\-$2.$3");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("^PC0\\t");
+SearchAndReplace.setReplaceString("Peak\\t");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("^PC1\\t");
+SearchAndReplace.setReplaceString("Plateau\\t");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("^PC2\\t");
+SearchAndReplace.setReplaceString("Rising\\t");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("^PC3\\t");
+SearchAndReplace.setReplaceString("Ramp\\t");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("^PC4\\t");
+SearchAndReplace.setReplaceString("Level\\t");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("^PC5\\t");
+SearchAndReplace.setReplaceString("Dip\\t");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("^PC6\\t");
+SearchAndReplace.setReplaceString("Down\\t");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("^PC7\\t");
+SearchAndReplace.setReplaceString("Falling\\t");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("^PC8\\t");
+SearchAndReplace.setReplaceString("Cliff\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Sea Level Pressure (hPa)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400}) SLP([01234])(\\d)(\\d)(\\s)");
+SearchAndReplace.setReplaceString("10$2$3.$4$1$5");
+SearchAndReplace.replaceAll(view);
+SearchAndReplace.setSearchString("(^[^\\n]{0,400}) SLP([89])(\\d)(\\d)(\\s)");
+SearchAndReplace.setReplaceString("9$2$3.$4$1$5");
+SearchAndReplace.replaceAll(view);
+
+// -- Pressure Altimeter (inHg)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} )A(\\d{2})(\\d{2}) ");
+SearchAndReplace.setReplaceString("$2.$3$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Pressure Measured (hPa)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Heat Warning (Pct)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Heat Index  (F)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=ROUND((-42.379+2.04901523*P2+10.14333127*U2-.22475541*P2*U2-.00683783*P2*P2-.05481717*U2*U2+.00122874*P2*P2*U2+.00085282*P2*U2*U2-.00000199*P2*P2*U2*U2)-(IF(U2<13,((13-U2)/4)*SQRT((17-ABS(T-95.))/17),1)");
+
+// -- Humidity (pct)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=ROUND(100*(EXP((17.625*S2/(243.04+S2)))/EXP((17.625*O2/(243.04+O2)))),1)");
+
+// -- Dewpoint  (F)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=ROUND((S2*9/5)+32,1)");
+
+// -- Dewpoint (C)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]+ T\\d{4})(\\d{4})(\\s)");
+SearchAndReplace.setReplaceString("T$2$1$2$3");
+SearchAndReplace.replaceAll(view);
+
+// -- Temp Min (C)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} T\\d{8}[^\\n]{0,200} 4\\d{4})(\\d{4})");
+SearchAndReplace.setReplaceString("T$2$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Temp Max (C)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]{0,400} T\\d{8}[^\\n]{0,200}) 4(\\d{4})");
+SearchAndReplace.setReplaceString("T$2$1");
+SearchAndReplace.replaceAll(view);
+
+// -- Temp-Current (F)
+
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=ROUND((O2*9/5)+32,1)");
+
+// -- Temp-Current (C)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]+ )(T\\d{4})(\\d{4})(\\s)");
+SearchAndReplace.setReplaceString("$2$1Temp Data$4");
+SearchAndReplace.replaceAll(view);
+
+// -- Convert temp to digits
+
+SearchAndReplace.setSearchString("(\\t|^)T1(\\d{2})(\\d{1}\\t)");
+SearchAndReplace.setReplaceString("$1-$2.$3");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(\\t|^)T1(\\d{2})(\\d{1}\\t)");
+SearchAndReplace.setReplaceString("$1-$2.$3");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(\\t|^)T0(\\d{2})(\\d{1}\\t)");
+SearchAndReplace.setReplaceString("$1$2.$3");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(\\t|^)T0(\\d{2})(\\d{1}\\t)");
+SearchAndReplace.setReplaceString("$1$2.$3");
+SearchAndReplace.replaceAll(view);
+
+// -- Bearing (no data)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Speed (no data)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Altitude (m)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Accuracy (m)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Longitude (no data)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- Latitude (no data)
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+// -- DD, HH, Time, Location
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("(^[^\\n]+\\t)(\\S{4}) (\\d{2})(\\d{2})(\\d{2})Z");
+SearchAndReplace.setReplaceString("$3\\t$4\\tUTC$4$5\\t$2$1");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString(" {0,1}M{0,1}\\d{2}/\\d{2} {0,1}");
+SearchAndReplace.setReplaceString("");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString(" {0,1}AO2 {0,1}");
+SearchAndReplace.setReplaceString("");
+SearchAndReplace.replaceAll(view);
+
+// -- MM (UTC) Override field
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("YYYY to override current month");
+
+// -- YYYY (UTC) Override field
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("YYYY to override current year ");
+
+
+// -- UTC Time Formula (assuming current month data )
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=DATEVALUE(IF(ISNUMBER(D2),D2,MONTH(NOW()))&\"/\"&E2&\"/\"&IF(ISNUMBER(C2),C2,YEAR(NOW())))+TIMEVALUE(MID(G2,4,2)&\":\"&MID(G2,6,1)&\"5\")");
+
+// -- Local Time Formula (assuming CDT (UTC-5) )
+SearchAndReplace.setSearchString("^");
+SearchAndReplace.setReplaceString("\\t");
+SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=B2+($AX$2/24)");
+
+// -- Column Labels
+textArea.goToBufferStart(false);
+textArea.insertEnterAndIndent();
+textArea.goToPrevLine(false);
+textArea.setSelectedText("Local-Time");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("UTC-Time");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("UTC-YYYY");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("UTC-MM");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("UTC-DD");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("UTC-HH");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("UTC-HHMM");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Location");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("GPS-Lat");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("GPS-Lng");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("GPS-Accuracy-(m)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("GPS-Altitude-(m)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("GPS-Speed-(mph)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("GPS-Bearing-(deg)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Temp-Current-(C)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Temp-Current-(F)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Temp-Max-(C)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Temp-Min-(C)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Dewpoint-(C)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Dewpoint-(F)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Humidity-(Pct)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Heat-Index-(F)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Heat-Warning-(Pct)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Air-Pressure-Measured-(hPa)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Air-Pressure-Altimeter-(inHg)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Air-Pressure-Sea-Level-(hPa)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Air-Pressure-Trend");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Air-Pressure-Change (hPa)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Wind-Direction-(deg)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Light-Solar-Angle-(deg)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Light-Solar-Azimuth-(deg)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Light-Clearsky-DHI-(W/m2)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Light-Clearsky-DNI-(W/m2)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Light-Clearsky-GHI-(W/m2)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Light-Measured-(Lux)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Light-Measured-Angle-(deg)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Light-Measured-Azimuth-(deg)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Wind-Speed-(kts)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Wind-Gust-(kts)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Precip-Hourly-(in)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Precip-Daily-(in)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Sky-Cover-(pct)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Sky-Cover");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Visibility-(mi)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Flag-Auto");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Flag-Maint");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Flag-Temp-Accuracy");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Remarks");
+
+// == Constants and Global Changeables
+	textArea.insertTabAndIndent();
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("Local-Time-Offset");
+	textArea.goToNextLine(false);
+	textArea.goToEndOfWhiteSpace(false);
+	textArea.insertTabAndIndent();
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("-5");
+	// -- Insert more blank columns
+	textArea.goToNextLine(false);
+	textArea.goToEndOfWhiteSpace(false);
+	textArea.insertTabAndIndent();
+	textArea.insertTabAndIndent();
+	//--
+	textArea.goToNextLine(false);
+	textArea.goToEndOfWhiteSpace(false);
+	textArea.insertTabAndIndent();
+	textArea.insertTabAndIndent();
+	//--
+	textArea.goToNextLine(false);
+	textArea.goToEndOfWhiteSpace(false);
+	textArea.insertTabAndIndent();
+	textArea.insertTabAndIndent();
+	//--
+	textArea.goToNextLine(false);
+	textArea.goToEndOfWhiteSpace(false);
+	textArea.insertTabAndIndent();
+	textArea.insertTabAndIndent();
+
+//=== Clean up 
+
+SearchAndReplace.setSearchString("RMK");
+SearchAndReplace.setReplaceString(" ");
+SearchAndReplace.replaceAll(view);
+
+SearchAndReplace.setSearchString("Temp Data {0,5}$");
+SearchAndReplace.setReplaceString("");
+SearchAndReplace.replaceAll(view);
+
+
+//= Set View
+textArea.goToBufferStart(false);
