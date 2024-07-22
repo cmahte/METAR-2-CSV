@@ -235,31 +235,31 @@ SearchAndReplace.setReplaceString("$1\\t\\-$2.$3");
 SearchAndReplace.replaceAll(view);
 
 SearchAndReplace.setSearchString("^PC0\\t");
-SearchAndReplace.setReplaceString("Peak\\t");
+SearchAndReplace.setReplaceString("/⁀\\\\ Pk\\t");
 SearchAndReplace.replaceAll(view);
 SearchAndReplace.setSearchString("^PC1\\t");
-SearchAndReplace.setReplaceString("Plateau\\t");
+SearchAndReplace.setReplaceString("/⁀⁀ Pl\\t");
 SearchAndReplace.replaceAll(view);
 SearchAndReplace.setSearchString("^PC2\\t");
-SearchAndReplace.setReplaceString("Rising\\t");
+SearchAndReplace.setReplaceString("‿/⁀ R\\t");
 SearchAndReplace.replaceAll(view);
 SearchAndReplace.setSearchString("^PC3\\t");
-SearchAndReplace.setReplaceString("Ramp\\t");
+SearchAndReplace.setReplaceString("‿‿/ M\\t");
 SearchAndReplace.replaceAll(view);
 SearchAndReplace.setSearchString("^PC4\\t");
-SearchAndReplace.setReplaceString("Level\\t");
+SearchAndReplace.setReplaceString("~~~ L\\t");
 SearchAndReplace.replaceAll(view);
 SearchAndReplace.setSearchString("^PC5\\t");
-SearchAndReplace.setReplaceString("Dip\\t");
+SearchAndReplace.setReplaceString("\\\\‿/ B\\t");
 SearchAndReplace.replaceAll(view);
 SearchAndReplace.setSearchString("^PC6\\t");
-SearchAndReplace.setReplaceString("Down\\t");
+SearchAndReplace.setReplaceString("\\\\‿‿ D\\t");
 SearchAndReplace.replaceAll(view);
 SearchAndReplace.setSearchString("^PC7\\t");
-SearchAndReplace.setReplaceString("Falling\\t");
+SearchAndReplace.setReplaceString("⁀\\\\‿ F\\t");
 SearchAndReplace.replaceAll(view);
 SearchAndReplace.setSearchString("^PC8\\t");
-SearchAndReplace.setReplaceString("Cliff\\t");
+SearchAndReplace.setReplaceString("⁀⁀\\\\ K\\t");
 SearchAndReplace.replaceAll(view);
 
 // -- Sea Level Pressure (hPa)
@@ -288,10 +288,16 @@ SearchAndReplace.setSearchString("^");
 SearchAndReplace.setReplaceString("\\t");
 SearchAndReplace.replaceAll(view);
 
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=ROUND((Y2*((288-0.0065*L2)/288)^5.2561)*33.86389,1)");
+
 // -- Heat Warning (Pct)
 SearchAndReplace.setSearchString("^");
 SearchAndReplace.setReplaceString("\\t");
 SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=ROUND((P2+U2-2*AL2)/175*100,1)");
 
 // -- Heat Index  (F)
 SearchAndReplace.setSearchString("^");
@@ -395,20 +401,33 @@ SearchAndReplace.setSearchString("^");
 SearchAndReplace.setReplaceString("\\t");
 SearchAndReplace.replaceAll(view);
 
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=VLOOKUP($H2,$AY$2:$BC$8,5,0");
+
 // -- Accuracy (m)
 SearchAndReplace.setSearchString("^");
 SearchAndReplace.setReplaceString("\\t");
 SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=VLOOKUP($H2,$AY$2:$BC$8,2,0");
 
 // -- Longitude (no data)
 SearchAndReplace.setSearchString("^");
 SearchAndReplace.setReplaceString("\\t");
 SearchAndReplace.replaceAll(view);
 
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=VLOOKUP($H2,$AY$2:$BC$8,4,0");
+
 // -- Latitude (no data)
 SearchAndReplace.setSearchString("^");
 SearchAndReplace.setReplaceString("\\t");
 SearchAndReplace.replaceAll(view);
+
+textArea.goToBufferStart(false);
+textArea.setSelectedText("=VLOOKUP($H2,$AY$2:$BC$8,3,0");
+
 
 // -- DD, HH, Time, Location
 SearchAndReplace.setSearchString("^");
@@ -508,7 +527,7 @@ textArea.setSelectedText("Humidity-(Pct)");
 textArea.insertTabAndIndent();
 textArea.setSelectedText("Heat-Index-(F)");
 textArea.insertTabAndIndent();
-textArea.setSelectedText("Heat-Warning-(Pct)");
+textArea.setSelectedText("Heat-Exposure-(Pct)");
 textArea.insertTabAndIndent();
 textArea.setSelectedText("Air-Pressure-Measured-(hPa)");
 textArea.insertTabAndIndent();
@@ -521,6 +540,10 @@ textArea.insertTabAndIndent();
 textArea.setSelectedText("Air-Pressure-Change (hPa)");
 textArea.insertTabAndIndent();
 textArea.setSelectedText("Wind-Direction-(deg)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Wind-Speed-(kts)");
+textArea.insertTabAndIndent();
+textArea.setSelectedText("Wind-Gust-(kts)");
 textArea.insertTabAndIndent();
 textArea.setSelectedText("Light-Solar-Angle-(deg)");
 textArea.insertTabAndIndent();
@@ -538,19 +561,15 @@ textArea.setSelectedText("Light-Measured-Angle-(deg)");
 textArea.insertTabAndIndent();
 textArea.setSelectedText("Light-Measured-Azimuth-(deg)");
 textArea.insertTabAndIndent();
-textArea.setSelectedText("Wind-Speed-(kts)");
-textArea.insertTabAndIndent();
-textArea.setSelectedText("Wind-Gust-(kts)");
-textArea.insertTabAndIndent();
 textArea.setSelectedText("Precip-Hourly-(in)");
 textArea.insertTabAndIndent();
 textArea.setSelectedText("Precip-Daily-(in)");
 textArea.insertTabAndIndent();
-textArea.setSelectedText("Sky-Cover-(pct)");
+textArea.setSelectedText("Dark-Sky-Cover-(pct)");
 textArea.insertTabAndIndent();
-textArea.setSelectedText("Sky-Cover");
+textArea.setSelectedText("Dark-Sky-List");
 textArea.insertTabAndIndent();
-textArea.setSelectedText("Visibility-(mi)");
+textArea.setSelectedText("Sky-Visibility-(mi)");
 textArea.insertTabAndIndent();
 textArea.setSelectedText("Flag-Auto");
 textArea.insertTabAndIndent();
@@ -574,21 +593,92 @@ textArea.setSelectedText("Remarks");
 	textArea.goToEndOfWhiteSpace(false);
 	textArea.insertTabAndIndent();
 	textArea.insertTabAndIndent();
+	textArea.setSelectedText(".");
 	//--
 	textArea.goToNextLine(false);
 	textArea.goToEndOfWhiteSpace(false);
 	textArea.insertTabAndIndent();
 	textArea.insertTabAndIndent();
+	textArea.setSelectedText(".");
 	//--
 	textArea.goToNextLine(false);
 	textArea.goToEndOfWhiteSpace(false);
 	textArea.insertTabAndIndent();
 	textArea.insertTabAndIndent();
+	textArea.setSelectedText(".");
 	//--
 	textArea.goToNextLine(false);
 	textArea.goToEndOfWhiteSpace(false);
 	textArea.insertTabAndIndent();
 	textArea.insertTabAndIndent();
+	textArea.setSelectedText(".");
+
+	//=== Station Location details
+	textArea.goToBufferStart(false);
+	textArea.goToEndOfWhiteSpace(false);
+	//-- Column Labels
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("IDX-Location-ID");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("IDX-Location-Name");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("IDX-Location-Latitude-(deg)");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("IDX-Location-Longitude-(deg)");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("IDX-Location-Elevation-(m)");
+	//-- 	
+	textArea.goToNextLine(false);
+	textArea.goToEndOfWhiteSpace(false);
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("KDFW");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("Dallas/Ft Worth International");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("32.897");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("-97.022");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("165.7");
+	//-- 	
+	textArea.goToNextLine(false);
+	textArea.goToEndOfWhiteSpace(false);
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("KFTW");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("Ft Worth Meacham Intl Airport");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("32.825");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("-97.364");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("213.6");
+	//-- 	
+	textArea.goToNextLine(false);
+	textArea.goToEndOfWhiteSpace(false);
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("KGKY");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("Arlington Municipal Airport");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("32.658");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("-97.095");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("179.7");
+	//-- 	
+	textArea.goToNextLine(false);
+	textArea.goToEndOfWhiteSpace(false);
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("KGPM");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("Grand Prairie Municipal Airport");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("32.699");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("-97.047");
+	textArea.insertTabAndIndent();
+	textArea.setSelectedText("179.5");
 
 //=== Clean up 
 
