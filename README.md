@@ -112,10 +112,10 @@ ISD Data Documenation | https://www.ncei.noaa.gov/data/global-hourly/doc/isd-for
  [/1]\\d{0,1}SM               | _____           | 0.5 | Fog Level     
 
 ### Mikey's Pressure Trend visualizations and OCD alphabetizing attempts
- **Figure Code** | **Alpha Code** | **Visual** | **Meaning** | **Term**  | **Change** | **Description (FCM-H1-2019)**                                                      
+ **Figure Code** | **Alpha Code** | **Visual** | **Meaning** | **Term**  | **Change** | **Description (quoting from FCM-H1-2019)**                                                      
 -----------------|----------------|------------|-------------|-----------|------------|----------------------------------------------------------------------------------- 
- PC0             | V              | /⁀\\       | Peak        | Vertex    | +          | Increasing, then decreasing.                                                       
- PC1             | T              | /⁀⁀        | Plateau     | Table     | +          | Increasing, then steady, or increasing then increasing more slowly.                
+ PC0             | Pk             | /⁀\\       | Peak        | Vertex    | +          | Increasing, then decreasing.                                                       
+ PC1             | Pl             | /⁀⁀        | Plateau     | Table     | +          | Increasing, then steady, or increasing then increasing more slowly.                
  PC2             | R              | ‿/⁀        | Rise        | **Rise**  | +          | Increasing steadily or unsteadily.                                                 
  PC3             | M              | ‿‿/        | Ramp        | Ramp      | +          | Decreasing or steady, then increasing; or increasing then increasing more rapidly. 
  PC4             | L              | \~~~       | Level       | **Level** | +          | Steady.                                                                            
@@ -128,7 +128,7 @@ ISD Data Documenation | https://www.ncei.noaa.gov/data/global-hourly/doc/isd-for
 Column| Name                  | Units                        | Column Head     
 ---- | ---------------------- | ---------------------------- | ----------------
 A    | Local Time             | YYYY-MM-DD HH:MM             | Local-Time      
-B    | UTC                    | YYYY-MM-DD HH:MM             | UTC-Time        
+B    | UTC Time               | YYYY-MM-DD HH:MM             | UTC-Time        
 C    | UTC Year               | YYYY                         | UTC-YYYY        
 D    | UTC Month              | MM                           | UTC-MM          
 E    | UTC Day                | DD                           | UTC-DD          
@@ -149,7 +149,7 @@ S    | Dewpoint               | C                            | Dewpoint-(C)
 T    | Dewpoint               | F                            | Dewpoint-(F)                 
 U    | Humidity               | (pct)                        | Humidity-(pct)               
 V    | Heat Index             | F                            | Heat-Index-(F)               
-W    | Heat Warning           | _Warning number_             | Heat-Warning                 
+W    | Heat Exposure          | _Warning_ lower is better    | Heat-Warning                 
 X    | Measured Pressure      | (hPa)                        | Air-Pressure-Measured-(hPa)  
 Y    | Alitmeter              | (InHg)                       | Air-Pressure-Altimeter-(inHg)
 Z    | Sea Level              | (hPa)                        | Air-Pressure-Sea-Level-(hPa) 
